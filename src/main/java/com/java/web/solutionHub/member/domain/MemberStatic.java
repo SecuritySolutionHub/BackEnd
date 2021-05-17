@@ -12,8 +12,5 @@ public class MemberStatic {
 	public enum bAdmin {
 		NOLMAL(0), ADMIN(1);
 		private int value;
-		bAdmin(int i) {
-			this.value = i;
-		}
 	}
 }

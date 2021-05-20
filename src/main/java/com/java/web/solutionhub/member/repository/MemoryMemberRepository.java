@@ -1,6 +1,6 @@
-package com.java.web.solutionHub.member.repository;
+package com.java.web.solutionhub.member.repository;
 
-import com.java.web.solutionHub.member.domain.Member;
+import com.java.web.solutionhub.member.domain.Member;
 
 import java.util.Optional;
 import java.util.ArrayList;
@@ -10,35 +10,41 @@ import java.util.Map;
 
 public class MemoryMemberRepository implements MemberRepository{
 	
-	private static Map<Long, Member> store = new HashMap<>();
+	private static Map<Long, Member> storeInfo = new HashMap<>();
 	private long sequence = 0L;
 	
 	@Override
 	public Member save(Member member) {
 		member.setIdx(++sequence);
-		store.put(member.getIdx(), member);
+		storeInfo.put(member.getIdx(), member);
 		return member;
 	}
 	
 	@Override
 	public Optional<Member> findByIdx(Long idx) {
-		return Optional.ofNullable(store.get(idx));
+		return Optional.ofNullable(storeInfo.get(idx));
 	}
 	
 	@Override
 	public Optional<Member> findByName(String name) {
-		return store.values().stream()
+		return storeInfo.values().stream()
 				.filter(member -> member.getName().equals(name))
 				.findAny();
 	}
 
 	@Override
-	public Optional<Member> findByUserId(String Id) {
-		return Optional.empty();
+	public Optional<Member> findByUserId(String id) {
+		return storeInfo.values().stream()
+				.filter(member -> member.getUserId().equals(id))
+				.findAny();
 	}
 
 	@Override
 	public List<Member> findAll() {
-		return new ArrayList<>(store.values());
+		return new ArrayList<>(storeInfo.values());
+	}
+
+	public void clearStore() {
+		storeInfo.clear();
 	}
 }

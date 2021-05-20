@@ -1,6 +1,6 @@
-package com.java.web.solutionHub.member.repository;
+package com.java.web.solutionhub.member.repository;
 
-import com.java.web.solutionHub.member.domain.Member;
+import com.java.web.solutionhub.member.domain.Member;
 
 import java.util.Optional;
 import java.util.List;
@@ -11,4 +11,5 @@ public interface MemberRepository{
 	Optional<Member> findByName(String name);
 	Optional<Member> findByUserId(String Id);
 	List<Member> findAll();
+
 }

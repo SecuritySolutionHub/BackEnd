@@ -1,11 +1,27 @@
 package com.java.web.solutionhub.member.domain;
 
+import javax.persistence.*;
+
+@Entity
 public class Member {
+
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idx")
 	private Long idx;
+
+	@Column(name = "user_id")
 	private String userId;
+
+	@Column(name = "password")
 	private String password;
+
+	@Column(name = "username")
 	private String name;
+
+	@Column(name = "company_mail")
 	private String companyEmail;
+
+	@Column(name = "user_grade")
 	private int bAdmin;
 
 	public Long getIdx() {

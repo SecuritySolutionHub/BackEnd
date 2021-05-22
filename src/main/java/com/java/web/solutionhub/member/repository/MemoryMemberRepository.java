@@ -1,6 +1,7 @@
 package com.java.web.solutionhub.member.repository;
 
 import com.java.web.solutionhub.member.domain.Member;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 import java.util.ArrayList;

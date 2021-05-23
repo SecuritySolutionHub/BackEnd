@@ -1,6 +1,13 @@
 package com.java.web.solutionhub.member.domain;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import javax.persistence.*;
+
+import org.springframework.util.Assert;
+
+import lombok.Builder;
 
 @Entity
 public class Member {
@@ -9,19 +16,19 @@ public class Member {
 	@Column(name = "idx")
 	private Long idx;
 
-	@Column(name = "user_id")
+	@Column(name = "user_id" , nullable = false)
 	private String userId;
 
-	@Column(name = "password")
+	@Column(name = "password", nullable = false)
 	private String password;
 
-	@Column(name = "username")
+	@Column(name = "username", nullable = false)
 	private String name;
 
 	@Column(name = "company_mail")
 	private String companyEmail;
 
-	@Column(name = "user_grade")
+	@Column(name = "user_grade", nullable = false)
 	private int bAdmin;
 
 	public Long getIdx() {
@@ -70,5 +77,18 @@ public class Member {
 
 	public void setbAdmin(int bAdmin) {
 		this.bAdmin = bAdmin;
+	}
+	
+	@Builder
+	public Member(Long idx, int bAdmin, String userId, String passWord, String name, String companyEmail) {
+		Assert.hasText(userId, "userId must not be empty");
+		Assert.hasText(passWord, "passWord must not be empty");
+		Assert.hasText(name, "name must not be empty");
+		this.idx = idx;
+		this.bAdmin = bAdmin;
+		this.userId = userId;
+		this.password = passWord;
+		this.name = name;
+		this.companyEmail = companyEmail;
 	}
 }

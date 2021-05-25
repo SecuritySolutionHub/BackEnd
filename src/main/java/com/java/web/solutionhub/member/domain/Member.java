@@ -8,8 +8,10 @@ import javax.persistence.*;
 import org.springframework.util.Assert;
 
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 @Entity
+@NoArgsConstructor
 public class Member {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -25,26 +25,38 @@ public class MemberService {
      * @return
      */
     public Long join(Member member) {
-        // 중복 회원 검증
+        // 중복회원 체크
         validateDuplicateMember(member);
         memberRepository.save(member);
         return member.getIdx();
     }
 
     /**
-     * 중복 회원 체크
+     * ID와 Password로 회원 확인
+     * @param Member
+     * 
+     * */
+    public void checkMember(Member member) {
+    	memberRepository.findByUserIdAndPassWord(member.getUserId(), member.getPassword())
+    		.ifPresent((Member m) -> {
+    			throw new IllegalStateException("회원을 찾을 수 없습니다.");
+    		});
+    }
+    
+    /**
+     * 회원 중복 체크
      * @param member
      * @return
      * */
     private void validateDuplicateMember(Member member) {
         memberRepository.findByUserId(member.getUserId())
                 .ifPresent((Member m) -> {
-                    throw new IllegalStateException("이미 존재하는 ID 입니다.");
+                    throw new IllegalStateException("중복되는 ID가 존재합니다.");
                 });
     }
 
     /**
-     * 전체 회원 조회
+     * 모든 회원 조회
      * @return memberRepository
      */
     public List<Member> findMembers() {

@@ -47,8 +47,21 @@ public class JpaMemberRepository implements MemberRepository{
     }
 
     @Override
+    public Optional<Member> findByUserIdAndPassWord(String userId, String passWord) {
+    	List<Member> result = em.createQuery("select m from Member as m where m.user_id = :id and m.password = :pass", Member.class)
+    			.setParameter(":id", userId)
+    			.setParameter(":pass", passWord)
+    			.getResultList();
+    	
+    	return result.stream().findAny();
+    }
+    
+    
+    @Override
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class)
                 .getResultList();
     }
+    
+    
 }

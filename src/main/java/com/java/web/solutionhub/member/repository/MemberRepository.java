@@ -10,6 +10,7 @@ public interface MemberRepository{
 	Optional<Member> findByIdx(Long idx);
 	Optional<Member> findByName(String name);
 	Optional<Member> findByUserId(String userId);
+	Optional<Member> findByUserIdAndPassWord(String userId, String passWord);
 	List<Member> findAll();
 
 }

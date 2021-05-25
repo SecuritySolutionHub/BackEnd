@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class MemberController {
@@ -23,8 +24,12 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
-    @PostMapping("/members/new")
-    public String create() {
+    @PostMapping("/members/login")
+    public String create(@RequestBody Member member) {
+    	String userId = member.getUserId();
+    	String passWord = member.getPassword();
+    	
+    	memberService.findByUserIdAndPassWord(userId, passWord);
         return "result";
     }
 }

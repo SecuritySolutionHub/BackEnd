@@ -18,14 +18,12 @@ class MemberServiceTest {
 
     Logger logger = LoggerFactory.getLogger(MemberServiceTest.class.getName());
 
-    // 각 테스트 이전 실행
     @BeforeEach
     public void beforeEach() {
         memberRepository = new MemoryMemberRepository();
         memberService = new MemberService(memberRepository);
     }
 
-    // 각 테스트 이후 실행
     @AfterEach
     public void clearMemory() {
         memberRepository.clearStore();
@@ -49,7 +47,7 @@ class MemberServiceTest {
     }
 
     @Test
-    void 중복회원_예외() {
+    void JoinMember() {
         //given
         Member member1 = new Member();
         member1.setName("Min Yong Kim");

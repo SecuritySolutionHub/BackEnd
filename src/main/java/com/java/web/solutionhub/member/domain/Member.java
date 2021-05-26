@@ -1,7 +1,5 @@
 package com.java.web.solutionhub.member.domain;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
@@ -14,7 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Member {
 
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idx")
 	private Long idx;
 
@@ -57,30 +56,6 @@ public class Member {
 		return bAdmin;
 	}
 
-	public void setIdx(Long idx) {
-		this.idx = idx;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setCompanyEmail(String companyEmail) {
-		this.companyEmail = companyEmail;
-	}
-
-	public void setbAdmin(int bAdmin) {
-		this.bAdmin = bAdmin;
-	}
-	
 	@Builder
 	public Member(Long idx, int bAdmin, String userId, String passWord, String name, String companyEmail) {
 		Assert.hasText(userId, "userId must not be empty");

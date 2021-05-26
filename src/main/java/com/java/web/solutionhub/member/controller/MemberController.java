@@ -24,12 +24,10 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
-    @PostMapping("/members/login")
+    @PostMapping("/members/join")
     public String create(@RequestBody Member member) {
-    	String userId = member.getUserId();
-    	String passWord = member.getPassword();
+    	memberService.join(member);
     	
-    	memberService.findByUserIdAndPassWord(userId, passWord);
         return "result";
     }
 }

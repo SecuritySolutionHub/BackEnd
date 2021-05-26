@@ -32,10 +32,11 @@ class MemberServiceTest {
     @Test
     void join() {
         //given
-        Member member = new Member();
-        member.setName("Min Yong Kim");
-        member.setPassword("1q2w3e%!!*");
-        member.setUserId("kmy2034@naver.com");
+        Member member = Member.builder()
+        		.userId("kmy2034@naver.com")
+        		.name("Min Yong Kim")
+        		.passWord("1q2w3e%!!*")
+        		.build();
 
         //when
         Long idx = memberService.join(member);
@@ -49,15 +50,17 @@ class MemberServiceTest {
     @Test
     void JoinMember() {
         //given
-        Member member1 = new Member();
-        member1.setName("Min Yong Kim");
-        member1.setPassword("1q2w3e%!!*");
-        member1.setUserId("kmy2034@naver.com");
+        Member member1 = Member.builder()
+        		.userId("kmy2034@naver.com")
+        		.name("Min Yong Kim")
+        		.passWord("1q2w3e%!!*")
+        		.build();
 
-        Member member2 = new Member();
-        member2.setName("Min Yong Kim");
-        member2.setPassword("1q2w3e%!!*");
-        member2.setUserId("kmy2034@naver.com");
+        Member member2 = Member.builder()
+        		.userId("kmy2034@naver.com")
+        		.name("Min Yong Kim")
+        		.passWord("1q2w3e%!!*")
+        		.build();
 
         //when
         memberService.join(member1);

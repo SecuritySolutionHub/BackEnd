@@ -24,10 +24,20 @@ public class MemberController {
         return "members/createMemberForm";
     }
 
-    @PostMapping("/members/join")
-    public String create(@RequestBody Member member) {
-    	memberService.join(member);
-    	
-        return "result";
+    @GetMapping("/members/joins")
+    public String redirectJoinPage(){
+        return "join";
     }
+
+    @PostMapping("/members/join")
+    public String joinMember(@RequestBody Member member) {
+    	memberService.join(member);
+        return "login";
+    }
+
+    @PostMapping("/members/login")
+    public void loginMember( ) {
+
+    }
+
 }

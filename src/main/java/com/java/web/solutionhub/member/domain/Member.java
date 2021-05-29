@@ -3,13 +3,22 @@ package com.java.web.solutionhub.member.domain;
 
 import javax.persistence.*;
 
-import org.springframework.util.Assert;
+import com.java.web.solutionhub.member.domain.enum_package.MemberStatic;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import lombok.AccessLevel;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
+@Getter
 @Entity
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
 
 	@Id 
@@ -17,55 +26,20 @@ public class Member {
 	@Column(name = "idx")
 	private Long idx;
 
-	@Column(name = "user_id" , nullable = false)
+	@Column(name = "userId" , nullable = false)
 	private String userId;
 
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@Column(name = "username", nullable = false)
-	private String name;
-
 	@Column(name = "company_mail")
 	private String companyEmail;
 
 	@Column(name = "user_grade", nullable = false)
-	private int bAdmin;
+	@Enumerated(EnumType.STRING)
+	private MemberStatic.memberRoll bAdmin;
 
-	public Long getIdx() {
-		return idx;
-	}
+	@Column(name = "create_dt")
+	private LocalDateTime createDate;
 
-	public String getUserId() {
-		return userId;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getCompanyEmail() {
-		return companyEmail;
-	}
-
-	public int getbAdmin() {
-		return bAdmin;
-	}
-
-	@Builder
-	public Member(Long idx, int bAdmin, String userId, String passWord, String name, String companyEmail) {
-		Assert.hasText(userId, "userId must not be empty");
-		Assert.hasText(passWord, "passWord must not be empty");
-		Assert.hasText(name, "name must not be empty");
-		this.idx = idx;
-		this.bAdmin = bAdmin;
-		this.userId = userId;
-		this.password = passWord;
-		this.name = name;
-		this.companyEmail = companyEmail;
-	}
 }

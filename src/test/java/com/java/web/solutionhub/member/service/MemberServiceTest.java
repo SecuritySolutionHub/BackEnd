@@ -1,7 +1,6 @@
 package com.java.web.solutionhub.member.service;
 
 import com.java.web.solutionhub.member.domain.Member;
-import com.java.web.solutionhub.member.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

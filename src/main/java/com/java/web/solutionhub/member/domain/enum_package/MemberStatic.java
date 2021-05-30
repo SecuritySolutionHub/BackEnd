@@ -11,16 +11,11 @@ public class MemberStatic {
 	@AllArgsConstructor
 	@RequiredArgsConstructor
 	public enum memberRoll {
-		USER("NORMAL_USER", "ì¸ì¦ë˜ì§€ ì•Šì€ ì‚¬ìš©ì"),
-		AUTHUSER("AUTH_USER", "ì¸ì¦ëœ ì‚¬ìš©ì"),
-		COMPANYUSER("COMPANY_USER", "íšŒì‚¬ê³„ì • ì‚¬ìš©ì"),
-		MANAGER("MANAGER", "ë§¤ë‹ˆì €"),
-		ADMIN("ADMIN", "ê´€ë¦¬ì");
-
-		memberRoll(String key, String value) {
-			this.key = key;
-			this.value = value;
-		}
+		USER("NORMAL_USER", "ÀÎÁõµÇÁö ¾ÊÀº È¸¿ø"),
+		AUTHUSER("AUTH_USER", "ÀÎÁõµÈ È¸¿ø"),
+		COMPANYUSER("COMPANY_USER", "±â¾÷ È¸¿ø"),
+		MANAGER("MANAGER", "¸Å´ÏÀú"),
+		ADMIN("ADMIN", "°ü¸®ÀÚ");
 
 		private String key = "";
 		private String value = "";

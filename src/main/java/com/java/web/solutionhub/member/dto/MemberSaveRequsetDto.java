@@ -1,6 +1,8 @@
 package com.java.web.solutionhub.member.dto;
 
 
+import java.time.LocalDateTime;
+
 import com.java.web.solutionhub.member.domain.Member;
 import com.java.web.solutionhub.member.domain.enum_package.MemberStatic;
 import lombok.Builder;
@@ -15,14 +17,14 @@ public class MemberSaveRequsetDto {
     private String userId;
     private String password;
     private String companyEmail;
-    private MemberStatic.memberRoll bAdmin;
+    private MemberStatic.memberRoll memberRoll;
 
     @Builder
-    pubilc MemberSaveRequsetDto(String userId, String password, String companyEmail, MemberStatic.memberRoll bAdmin){
+    MemberSaveRequsetDto(String userId, String password, String companyEmail, MemberStatic.memberRoll roll){
         this.userId = userId;
         this.password = password;
         this.companyEmail = companyEmail;
-        this.bAdmin = bAdmin;
+        this.memberRoll = roll;
     }
 
     public Member toEntity(){
@@ -30,7 +32,8 @@ public class MemberSaveRequsetDto {
                 .userId(userId)
                 .password(password)
                 .companyEmail(companyEmail)
-                .bAdmin(bAdmin)
+                .memberRoll(memberRoll)
+                .createDate(LocalDateTime.now())
                 .build();
     }
 }

@@ -2,6 +2,7 @@ package com.java.web.solutionhub.member.service;
 
 
 import com.java.web.solutionhub.member.domain.Member;
+import com.java.web.solutionhub.member.dto.MemberSaveRequsetDto;
 import com.java.web.solutionhub.member.repository.MemberRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +25,9 @@ public class MemberService {
      * @param member
      * @return
      */
-    public Long join(Member member) {
-        // 중복회원 체크
-        validateDuplicateMember(member);
-        memberRepository.save(member);
-        return member.getIdx();
+    public Long join(MemberSaveRequsetDto memberDto) {
+        validateDuplicateMember(memberDto);
+        return memberRepository.save(memberDto.toEntity()).getIdx();
     }
 
     /**
@@ -43,13 +42,15 @@ public class MemberService {
     		});
     }
     
+    
+    
     /**
      * 회원 중복 체크
      * @param member
      * @return
      * */
-    private void validateDuplicateMember(Member member) {
-        memberRepository.findByUserId(member.getUserId())
+    private void validateDuplicateMember(MemberSaveRequsetDto memberDto) {
+        memberRepository.findByUserId(memberDto.getUserId())
                 .ifPresent((Member m) -> {
                     throw new IllegalStateException("중복되는 ID가 존재합니다.");
                 });

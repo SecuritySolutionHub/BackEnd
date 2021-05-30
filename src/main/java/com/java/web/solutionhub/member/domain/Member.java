@@ -8,6 +8,7 @@ import com.java.web.solutionhub.member.domain.enum_package.MemberStatic;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @Entity
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 public class Member {
 
@@ -32,14 +34,14 @@ public class Member {
 	@Column(name = "password", nullable = false)
 	private String password;
 
-	@Column(name = "company_mail")
+	@Column(name = "companyEmail")
 	private String companyEmail;
 
-	@Column(name = "user_grade", nullable = false)
+	@Column(name = "memberRoll", nullable = false)
 	@Enumerated(EnumType.STRING)
-	private MemberStatic.memberRoll bAdmin;
+	private MemberStatic.memberRoll memberRoll;
 
-	@Column(name = "create_dt")
+	@Column(name = "createDate")
 	private LocalDateTime createDate;
 
 }

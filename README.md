@@ -1,4 +1,4 @@
 # BackEnd
 ### Entity Relation
 
-![엔티티 관계도](BackEnd/img/entity relationdiagram.jpg)
+![엔티티 관계도](/BackEnd/img/entity relationdiagram.jpg)

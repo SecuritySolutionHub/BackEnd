@@ -1,4 +1,5 @@
 # BackEnd
 ### Entity Relation
 
-![엔티티 관계도](/BackEnd/img/entity relationdiagram.jpg)
+![엔티티 다이어그램](/BackEnd/blob/main/img/entity relationdiagram.jpg)
+

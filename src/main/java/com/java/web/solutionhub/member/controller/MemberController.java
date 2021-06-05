@@ -2,6 +2,7 @@ package com.java.web.solutionhub.member.controller;
 
 
 import com.java.web.solutionhub.member.domain.Member;
+import com.java.web.solutionhub.member.dto.MemberSaveRequsetDto;
 import com.java.web.solutionhub.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,12 @@ public class MemberController {
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
-
+    
+    @GetMapping("/login")
+    public String login() {
+    	return "index";
+    }
+    
     @GetMapping("/members/new")
     public String createMemberForm() {
         return "members/createMemberForm";
@@ -31,13 +37,19 @@ public class MemberController {
 
     @PostMapping("/members/join")
     public String joinMember(@RequestBody Member member) {
-    	memberService.join(member);
+    	MemberSaveRequsetDto memberDto = MemberSaveRequsetDto.builder()
+    										.userId(member.getUserId())
+    										.password(member.getPassword())
+    										.companyEmail(member.getCompanyEmail())
+    										.roll(member.getMemberRoll())
+    										.build();
+    	memberService.join(memberDto);
         return "login";
     }
 
     @PostMapping("/members/login")
     public void loginMember( ) {
-
+    	
     }
 
 }

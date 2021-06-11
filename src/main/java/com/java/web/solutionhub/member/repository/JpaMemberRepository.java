@@ -2,18 +2,21 @@ package com.java.web.solutionhub.member.repository;
 
 import com.java.web.solutionhub.member.domain.Member;
 
+import lombok.RequiredArgsConstructor;
+
 import javax.persistence.EntityManager;
+
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
 
+@Repository
+@RequiredArgsConstructor
 public class JpaMemberRepository implements MemberRepository{
 
     private final EntityManager em;
-
-    public JpaMemberRepository(EntityManager em) {
-        this.em = em;
-    }
 
 
     @Override
@@ -30,8 +33,8 @@ public class JpaMemberRepository implements MemberRepository{
 
     @Override
     public Optional<Member> findByUserId(String userId) {
-        List<Member> result = em.createQuery("select m from Member as m where m.user_id = :id", Member.class)
-                .setParameter(":id", userId)
+        List<Member> result = em.createQuery("select m from Member as m where m.userId = :id", Member.class)
+                .setParameter("id", userId)
                 .getResultList();
 
         return result.stream().findAny();

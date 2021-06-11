@@ -4,27 +4,29 @@ package com.java.web.solutionhub.member.service;
 import com.java.web.solutionhub.member.domain.Member;
 import com.java.web.solutionhub.member.dto.MemberSaveRequsetDto;
 import com.java.web.solutionhub.member.repository.MemberRepository;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
+@Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
-
-    // Dependency Injection(DI)
-    public MemberService(MemberRepository memberRepository) {
-        this.memberRepository = memberRepository;
-    }
 
     /**
      * 회원 가입
      * @param member
      * @return
      */
+    @Transactional
     public Long join(MemberSaveRequsetDto memberDto) {
         validateDuplicateMember(memberDto);
         return memberRepository.save(memberDto.toEntity()).getIdx();
@@ -67,5 +69,9 @@ public class MemberService {
 
     public Optional<Member> findOne(Long idx) {
         return memberRepository.findByIdx(idx);
+    }
+    
+    public Optional<Member> findByUserId(String userId) {
+    	return memberRepository.findByUserId(userId);
     }
 }

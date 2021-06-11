@@ -1,55 +1,61 @@
 package com.java.web.solutionhub.member.controller;
 
 
+import com.java.web.solutionhub.config.jwt.JwtTokenProvider;
 import com.java.web.solutionhub.member.domain.Member;
+import com.java.web.solutionhub.member.domain.enum_package.MemberStatic.memberRoll;
 import com.java.web.solutionhub.member.dto.MemberSaveRequsetDto;
 import com.java.web.solutionhub.member.service.MemberService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
-
-    @Autowired
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
+    
+    
+    // 회원 가입
+    @PostMapping("/join")
+    public Long join(@RequestBody Map<String, String> member) {
+    	return memberService.join(MemberSaveRequsetDto.builder()
+    			.userId(member.get("userId"))
+    			.password(passwordEncoder.encode(member.get("password")))
+    			.companyEmail(member.get("companyEmail"))
+    			.roll(memberRoll.USER)
+    			.build());
     }
     
-    @GetMapping("/login")
-    public String login() {
-    	return "index";
+    // 로그인
+    @PostMapping("/login")
+    public String login(@RequestBody Map<String, String> member) {
+    	var members = memberService.findByUserId(member.get("userId"))
+                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 계졍입니다."));
+        if (!passwordEncoder.matches(member.get("password"), members.getPassword())) {
+            throw new IllegalArgumentException("잘못된 비밀번호입니다.");
+        }
+        return jwtTokenProvider.createToken(members.getUsername(), members.getRoles());
     }
     
-    @GetMapping("/members/new")
-    public String createMemberForm() {
-        return "members/createMemberForm";
-    }
-
-    @GetMapping("/members/joins")
-    public String redirectJoinPage(){
-        return "join";
-    }
-
-    @PostMapping("/members/join")
-    public String joinMember(@RequestBody Member member) {
-    	MemberSaveRequsetDto memberDto = MemberSaveRequsetDto.builder()
-    										.userId(member.getUserId())
-    										.password(member.getPassword())
-    										.companyEmail(member.getCompanyEmail())
-    										.roll(member.getMemberRoll())
-    										.build();
-    	memberService.join(memberDto);
-        return "login";
-    }
-
-    @PostMapping("/members/login")
-    public void loginMember( ) {
+    @Data
+    static class CreateMemberRequest{
+    	private Long id;
     	
+    	public CreateMemberRequest(Long id) {
+    		this.id = id;
+    	}
     }
-
 }

@@ -30,7 +30,7 @@ public class SwaggerConfig {
 				.select()
 				.apis(RequestHandlerSelectors
 						.basePackage("com.java.web.solutionhub.member.controller"))
-				.paths(PathSelectors.ant("/members/**"))
+				.paths(PathSelectors.ant("/**"))
 				.build();
 	}
 }

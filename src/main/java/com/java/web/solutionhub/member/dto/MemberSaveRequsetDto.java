@@ -2,6 +2,8 @@ package com.java.web.solutionhub.member.dto;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.java.web.solutionhub.member.domain.Member;
 import com.java.web.solutionhub.member.domain.enum_package.MemberStatic;
@@ -18,13 +20,16 @@ public class MemberSaveRequsetDto {
     private String password;
     private String companyEmail;
     private MemberStatic.memberRoll memberRoll;
+    private List<String> roles = new ArrayList<>();
 
+    
     @Builder
-    MemberSaveRequsetDto(String userId, String password, String companyEmail, MemberStatic.memberRoll roll){
+    MemberSaveRequsetDto(String userId, String password, String companyEmail, MemberStatic.memberRoll roll, List<String> roles){
         this.userId = userId;
         this.password = password;
         this.companyEmail = companyEmail;
         this.memberRoll = roll;
+        this.roles = roles;
     }
 
     public Member toEntity(){

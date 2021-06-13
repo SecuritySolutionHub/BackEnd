@@ -2,7 +2,6 @@ package com.java.web.solutionhub.member.controller;
 
 
 import com.java.web.solutionhub.config.jwt.JwtTokenProvider;
-import com.java.web.solutionhub.member.domain.Member;
 import com.java.web.solutionhub.member.domain.enum_package.MemberStatic.memberRoll;
 import com.java.web.solutionhub.member.dto.MemberSaveRequsetDto;
 import com.java.web.solutionhub.member.service.MemberService;
@@ -10,8 +9,6 @@ import com.java.web.solutionhub.member.service.MemberService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.security.crypto.password.PasswordEncoder;

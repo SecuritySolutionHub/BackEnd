@@ -1,14 +1,11 @@
 package com.java.web.solutionhub.board.domain;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Builder
 public class BoardDto {
-	
 	
 	private Long id;
 	
@@ -16,7 +13,10 @@ public class BoardDto {
 	
 	private String content;
 	
-	private Long categoryId;
-	
-	private Long commentId;
+	public Board convertEntity() {
+		return Board.builder()
+				.title(title)
+				.content(content)
+				.build();
+	}
 }

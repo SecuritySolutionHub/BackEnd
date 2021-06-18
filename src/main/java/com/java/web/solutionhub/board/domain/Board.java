@@ -1,5 +1,8 @@
 package com.java.web.solutionhub.board.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -18,7 +21,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
@@ -36,9 +38,21 @@ public class Board {
 	private String content;
 	
 	@Column(name = "category_id")
-	@OneToMany(mappedBy = "category_id")
-	private Long categoryId;
+	@OneToMany(mappedBy = "board")
+	private List<BoardCategory> boardCategory = new ArrayList<>();
 	
 	@Column(name = "comment_id")
 	private Long commentId;
+	
+	
+	public void modifyContent(String title, String content) {
+		this.title = title;
+		this.content = content;
+	}
+	
+	@Builder
+	public Board(String title, String content) {
+		this.title = title;
+		this.content = content;
+	}
 }

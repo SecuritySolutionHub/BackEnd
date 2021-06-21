@@ -1,7 +1,7 @@
 package com.java.web.solutionhub.board.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +11,9 @@ import com.java.web.solutionhub.board.domain.BoardDto;
 import com.java.web.solutionhub.board.repository.BoardRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -19,28 +21,27 @@ public class BoardService {
 	// TODO : BoardService implementation needs to be completed
 	private final BoardRepository boardRepository;
 	
-	public List<BoardDto> searchPostByTitle(String title) {
-		List<Board> boards = boardRepository.findByTitle(title);
-		List<BoardDto> resultList = new ArrayList<>();
-		
-		if(boards.isEmpty())
-			return resultList;
-		
-		for(Board board : boards) {
-			resultList.add(this.convertEntityToDto(board));
-		}
-		
-		return resultList;
+	public Long uploadPost(BoardDto boardDto){
+		var result = boardRepository.save(boardDto.convertEntity());
+		log.info("Post is upload. Title is {}", boardDto.getTitle());
+		return result.getId();
 	}
 	
-	
-	private BoardDto convertEntityToDto(Board board) {
+	public BoardDto getBoardInfoByIdx(Long idx) {
+		var getData = boardRepository.getOne(idx);
 		return BoardDto.builder()
-				.id(board.getId())
-				.title(board.getTitle())
-				.content(board.getContent())
-				.categoryId(board.getCategoryId())
-				.commentId(board.getCommentId())
+				.title(getData.getTitle())
+				.content(getData.getContent())
+				.userId(getData.getUserId())
+				.id(idx)
 				.build();
 	}
+	
+	public List<BoardDto> getBoardInfoByUserId(String userId) {
+		List<Board> findResult = boardRepository.findByUserId(userId);
+		return findResult.stream()
+				.map(m -> new BoardDto(m.getId(), m.getUserId(), m.getTitle(), m.getContent()))
+				.collect(Collectors.toList());
+	}
+
 }

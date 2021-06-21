@@ -31,6 +31,9 @@ public class Board {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(name = "user_id", nullable = false)
+	private String userId;
+	
 	@Column(name = "title", nullable = false)
 	private String title;
 	
@@ -51,7 +54,8 @@ public class Board {
 	}
 	
 	@Builder
-	public Board(String title, String content) {
+	public Board(String title, String content, String userId) {
+		this.userId = userId;
 		this.title = title;
 		this.content = content;
 	}

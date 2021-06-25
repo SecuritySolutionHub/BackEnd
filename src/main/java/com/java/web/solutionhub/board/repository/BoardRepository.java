@@ -12,5 +12,5 @@ public interface BoardRepository extends JpaRepository<Board, Long>{
 	
 	public List<Board> findByUserId(String userId);
 	
-	public Board findByTitle(String title);
+	public Optional<Board> findByTitle(String title);
 }

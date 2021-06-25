@@ -18,6 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,8 +39,6 @@ public class Comment {
 	@Column(name="user_id")
 	private Long userId;
 	
-	private Long commentId;
-	
 	private String commentInfo;
 	
 	private Double point;
@@ -58,6 +57,14 @@ public class Comment {
 	
 	public void setParent(Comment parent) {
 		this.parent = parent;
+	}
+	
+	@Builder
+	public Comment(Long boardId, Long userId, String commentInfo, Double point) {
+		this.boardId = boardId;
+		this.userId = userId;
+		this.commentInfo = commentInfo;
+		this.point = point;
 	}
 	
 }

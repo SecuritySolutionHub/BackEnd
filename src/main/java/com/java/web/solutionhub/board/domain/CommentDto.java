@@ -1,12 +1,25 @@
 package com.java.web.solutionhub.board.domain;
 
 import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 @Builder
 public class CommentDto {
-
+	private Long id;
+	private Long boardId;
+	private Long userId;
+	private Long parentsId;
+	private Double point;
+	private String commentInfo;
+	
+	public Comment convertEntity() {
+		return Comment.builder()
+				.boardId(boardId)
+				.userId(userId)
+				.commentInfo(commentInfo)
+				.point(point)
+				.build();
+				
+	}
 }

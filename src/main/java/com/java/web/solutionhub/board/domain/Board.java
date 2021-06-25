@@ -59,4 +59,17 @@ public class Board {
 		this.title = title;
 		this.content = content;
 	}
+	
+	public void updateBoard(String title, String content) {
+		this.title = title;
+		this.content = content;
+	}
+	
+	public void addBoardCategory(BoardCategory category) {
+		boardCategory.add(category);
+	}
+	
+	public void subBoardCategory(BoardCategory category) {
+		boardCategory.remove(category);
+	}
 }

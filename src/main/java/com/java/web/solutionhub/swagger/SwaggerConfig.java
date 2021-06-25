@@ -29,7 +29,7 @@ public class SwaggerConfig {
 				.apiInfo(this.apiInfo())
 				.select()
 				.apis(RequestHandlerSelectors
-						.basePackage("com.java.web.solutionhub.member.controller"))
+						.any())
 				.paths(PathSelectors.ant("/**"))
 				.build();
 	}

@@ -12,9 +12,12 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 public class BoardCategory {
@@ -30,4 +33,11 @@ public class BoardCategory {
 	@JoinColumn(name = "category_id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Category category;
+	
+	@Builder
+	public BoardCategory(Board board, Category category) {
+		this.board = board;
+		this.category = category;
+	}
+	
 }

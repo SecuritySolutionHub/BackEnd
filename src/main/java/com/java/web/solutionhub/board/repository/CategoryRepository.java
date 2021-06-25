@@ -1,20 +1,9 @@
 package com.java.web.solutionhub.board.repository;
 
-import javax.persistence.EntityManager;
-
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.java.web.solutionhub.board.domain.Category;
 
-import lombok.RequiredArgsConstructor;
+public interface CategoryRepository extends JpaRepository<Category, Long>{
 
-@Repository
-@RequiredArgsConstructor
-public class CategoryRepository {
-	
-	private final EntityManager em;
-	
-	public void save(Category category) {
-		em.persist(category);
-	}
 }

@@ -46,7 +46,7 @@ public class InitDataBase {
 		var categoryChild = "CHILD CATEGORY";
 		Long childCateid = categoryService.addCategory(categoryChild);
 		
-		categoryService.addChildCategory(cateId, childCateid);
+		categoryService.addChildCategoryToBoard(boardId, cateId, childCateid);
 		
 		boardService.addBoardCategory(boardId, cateId);
 	}

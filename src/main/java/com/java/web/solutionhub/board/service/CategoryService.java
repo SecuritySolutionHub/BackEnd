@@ -5,7 +5,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.java.web.solutionhub.board.domain.BoardCategory;
 import com.java.web.solutionhub.board.domain.Category;
+import com.java.web.solutionhub.board.repository.BoardCategoryRepository;
+import com.java.web.solutionhub.board.repository.BoardRepository;
 import com.java.web.solutionhub.board.repository.CategoryRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -17,7 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CategoryService {
+	private final BoardRepository boardRepository;
 	private final CategoryRepository categoryRepository;
+	private final BoardCategoryRepository boardCategoryRepository;
 	
 	@Transactional
 	public Long addCategory(String categoryType) {
@@ -34,13 +39,17 @@ public class CategoryService {
 		return category.orElse(null);
 	}
 	
-	public void addChildCategory(Long parentsId, Long childId) {
-		Optional<Category> parentsCategory = categoryRepository.findById(parentsId);
-		Optional<Category> childCategory = categoryRepository.findById(childId);
-		
-		var parents = parentsCategory.orElseThrow();
-		var child = childCategory.orElse(null);
-		
+	public void addChildCategoryToBoard(Long boardId, Long parentsId, Long childId) {
+		var board = boardRepository.findById(boardId).orElseThrow();
+		var parents = categoryRepository.findById(parentsId).orElseThrow();
+		var child = categoryRepository.findById(childId).orElseThrow();
+
 		parents.addChildCategory(child);
+		BoardCategory saveData = BoardCategory.builder()
+				.board(board)
+				.category(child)
+				.build();
+		
+		boardCategoryRepository.save(saveData);
 	}
 }

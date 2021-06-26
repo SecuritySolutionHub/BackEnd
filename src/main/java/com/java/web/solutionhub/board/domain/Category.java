@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -31,7 +30,6 @@ import lombok.NoArgsConstructor;
 public class Category {
 	
 	@Id
-	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
@@ -42,15 +40,15 @@ public class Category {
 	private String categoryType;
 	
 	@JoinColumn(name = "parent_id")
-	@OneToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	private Category parent;
 	
-	@OneToOne(mappedBy = "parent")
-	private Category child;
+	@OneToMany(mappedBy = "parent")
+	private List<Category> child;
 	
 	public void addChildCategory(Category child) {
 		child.setParent(this);
-		this.child = child;
+		this.child.add(child);
 	}
 	
 	public void subChildCategory(Category child) {

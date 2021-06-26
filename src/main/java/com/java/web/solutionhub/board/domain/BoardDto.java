@@ -20,7 +20,7 @@ public class BoardDto {
 	
 	private String content;
 	
-	private List<Map<Long, String>> categories;
+	private List<CategoryDto> categories;
 	
 	public Board convertEntity() {
 		return Board.builder()

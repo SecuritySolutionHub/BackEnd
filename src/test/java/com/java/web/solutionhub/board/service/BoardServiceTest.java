@@ -88,8 +88,8 @@ class BoardServiceTest {
 				.build();
 		
 		
-		Long boardId = boardService.uploadPost(firstPost);
-		boardService.uploadPost(secondPost);
+		Long fisrtBoardId = boardService.uploadPost(firstPost);
+		Long secondBoardId = boardService.uploadPost(secondPost);
 		
 		var category = "TEST CATEGORY";
 		Long cateId = categoryService.addCategory(category);
@@ -97,13 +97,17 @@ class BoardServiceTest {
 		var categoryChild = "CHILD CATEGORY";
 		Long childCateid = categoryService.addCategory(categoryChild);
 		
-		System.out.println(cateId);
-		System.out.println(childCateid);
 		
-		categoryService.addChildCategory(cateId, childCateid);
+		categoryService.addChildCategoryToBoard(fisrtBoardId, cateId, childCateid);
+		Category getCate = categoryService.findCategoryById(cateId);
 		
-		boardService.addBoardCategory(boardId, cateId);
+		boardService.addBoardCategory(fisrtBoardId, cateId);
 		
+		var getData = boardService.getBoardInfoByIdx(fisrtBoardId);
+		
+		System.out.println(getData);
+		assertEquals(getData.getTitle(), firstPost.getTitle());
+//		assertEquals(getCate.getChild(), categoryService.findCategoryById(childCateid));
 	}
 
 }

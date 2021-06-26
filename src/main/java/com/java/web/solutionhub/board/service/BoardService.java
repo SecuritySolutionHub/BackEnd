@@ -27,7 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BoardService {
 	private final BoardRepository boardRepository;
 	private final CategoryRepository categoryRepository;
-	private final BoardCategoryRepository bcRepository;
+	private final BoardCategoryRepository boardCategoryRepository;
 	
 	public Long uploadPost(BoardDto boardDto){
 		var result = boardRepository.save(boardDto.convertEntity());
@@ -35,22 +35,23 @@ public class BoardService {
 		return result.getId();
 	}
 	
-	public BoardDto getBoardInfoByIdx(Long idx) {
-		var getData = boardRepository.getOne(idx);
-		List<BoardCategory> categoryList = bcRepository.findByBoard(idx);
-		List<Map<Long, String>> bcCate = new ArrayList<>();
-		BoardDto result = BoardDto.builder()
-				.id(getData.getId())
-				.title(getData.getTitle())
-				.content(getData.getContent())
-				.build();
-		
-		for(BoardCategory mappingInfo : categoryList) {
-			bcCate = makeCategories(mappingInfo.getCategory(), bcCate);
-		}
-		
-		result.setCategories(bcCate);
-		return result;
+	public Board getBoardInfoByIdx(Long idx) {
+//		Board getData = boardRepository.findById(idx).orElseThrow();
+//		List<BoardCategory> boardCategoryList = boardCategoryRepository.findByBoard(getData.getId());
+//		BoardDto result = BoardDto.builder()
+//				.title(getData.getTitle())
+//				.content(getData.getContent())
+//				.id(getData.getId())
+//				.userId(getData.getUserId())
+//				.build();
+//		for(BoardCategory boardCategory : boardCategoryList) {
+//			List<Category> list = categoryRepository.findById(boardCategory.getCategory().getId())
+//					.stream().collect(Collectors.toList());
+//			result.setCategories(list);
+//		}
+//		
+//		return result;
+		return boardRepository.findById(idx).orElseThrow();
 	}
 	
 	public List<Board> getBoardInfoByTitle(String title) {
@@ -70,25 +71,17 @@ public class BoardService {
 				.board(board)
 				.category(category)
 				.build();
-		bcRepository.save(boardCategory);
+		boardCategoryRepository.save(boardCategory);
 	}
 	
 	public void deletePost(Long id) {
 		boardRepository.deleteById(id);
 	}
 	
+	@Transactional
 	public void modifyPost(BoardDto boardDto) {
 		var board = boardRepository.getOne(boardDto.getId());
 		board.modifyContent(boardDto.getTitle(), boardDto.getContent());
 	}
 	
-	private List<Map<Long, String>> makeCategories(Category info, List<Map<Long, String>> result) {
-		Map<Long, String> categoryMapping = new HashMap<>();
-		categoryMapping.put(info.getId(), info.getCategoryType());
-		result.add(categoryMapping);
-		if(info.getChild() != null) {
-			result = makeCategories(info.getChild(), result);
-		}
-		return result;
-	}
 }

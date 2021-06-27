@@ -1,6 +1,5 @@
 package com.java.web.solutionhub.board.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -52,7 +51,7 @@ public class Category {
 	}
 	
 	public void subChildCategory(Category child) {
-		this.child = null;
+		this.child.remove(child);
 	}
 	
 	public void setParent(Category parent) {

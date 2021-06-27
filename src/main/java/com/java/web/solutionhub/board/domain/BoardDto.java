@@ -1,7 +1,6 @@
 package com.java.web.solutionhub.board.domain;
 
 import java.util.List;
-import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

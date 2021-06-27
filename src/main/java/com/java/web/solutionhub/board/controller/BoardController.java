@@ -30,27 +30,7 @@ public class BoardController {
 	
 	@GetMapping("/board/{id}/content")
 	public BoardDto getBoardInfoByIdx(@PathVariable("id") Long id) {
-		var getData = boardService.getBoardInfoByIdx(id);
-		List<CategoryDto> categories = new ArrayList<>();
-		for(BoardCategory boardCategory : getData.getBoardCategory()) {
-			CategoryDto category = CategoryDto.builder()
-					.categoryId(boardCategory.getCategory().getId())
-					.categoryType(boardCategory.getCategory().getCategoryType())
-					.build();
-			
-			if(boardCategory.getCategory().getParent() != null) {
-				category.setParentsId(boardCategory.getCategory().getParent().getId());
-			}
-			categories.add(category);
-		}
-		return BoardDto.builder()
-				.title(getData.getTitle())
-				.userId(getData.getUserId())
-				.id(getData.getId())
-				.content(getData.getContent())
-				.categories(categories)
-				.build();
-		
+		return boardService.getBoardInfoByIdx(id);
 	}
 	
 	@PostMapping("/board")

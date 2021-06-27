@@ -13,6 +13,7 @@ import com.java.web.solutionhub.board.domain.Board;
 import com.java.web.solutionhub.board.domain.BoardCategory;
 import com.java.web.solutionhub.board.domain.BoardDto;
 import com.java.web.solutionhub.board.domain.Category;
+import com.java.web.solutionhub.board.domain.CategoryDto;
 import com.java.web.solutionhub.board.repository.BoardCategoryRepository;
 import com.java.web.solutionhub.board.repository.BoardRepository;
 import com.java.web.solutionhub.board.repository.CategoryRepository;
@@ -35,23 +36,25 @@ public class BoardService {
 		return result.getId();
 	}
 	
-	public Board getBoardInfoByIdx(Long idx) {
-//		Board getData = boardRepository.findById(idx).orElseThrow();
-//		List<BoardCategory> boardCategoryList = boardCategoryRepository.findByBoard(getData.getId());
-//		BoardDto result = BoardDto.builder()
-//				.title(getData.getTitle())
-//				.content(getData.getContent())
-//				.id(getData.getId())
-//				.userId(getData.getUserId())
-//				.build();
-//		for(BoardCategory boardCategory : boardCategoryList) {
-//			List<Category> list = categoryRepository.findById(boardCategory.getCategory().getId())
-//					.stream().collect(Collectors.toList());
-//			result.setCategories(list);
-//		}
-//		
-//		return result;
-		return boardRepository.findById(idx).orElseThrow();
+	public BoardDto getBoardInfoByIdx(Long idx) {
+		Board getData = boardRepository.findById(idx).orElseThrow();
+		List<CategoryDto> categories = new ArrayList<>();
+		for(BoardCategory boardCategory : getData.getBoardCategory()) {
+			var category = new CategoryDto();
+			category.setCategoryId(boardCategory.getCategory().getId());
+			category.setCategoryType(boardCategory.getCategory().getCategoryType());
+			if(boardCategory.getCategory().getParent() != null) {
+				category.setParentsId(boardCategory.getCategory().getParent().getId());
+			}
+			categories.add(category);
+		}
+		return BoardDto.builder()
+				.title(getData.getTitle())
+				.userId(getData.getUserId())
+				.id(getData.getId())
+				.content(getData.getContent())
+				.categories(categories)
+				.build();
 	}
 	
 	public List<Board> getBoardInfoByTitle(String title) {

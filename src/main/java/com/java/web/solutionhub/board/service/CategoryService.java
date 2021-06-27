@@ -39,12 +39,14 @@ public class CategoryService {
 		return category.orElse(null);
 	}
 	
+	@Transactional
 	public void addChildCategoryToBoard(Long boardId, Long parentsId, Long childId) {
 		var board = boardRepository.findById(boardId).orElseThrow();
-		var parents = categoryRepository.findById(parentsId).orElseThrow();
 		var child = categoryRepository.findById(childId).orElseThrow();
-
+		var parents = categoryRepository.findById(parentsId).orElseThrow();
+		
 		parents.addChildCategory(child);
+		
 		BoardCategory saveData = BoardCategory.builder()
 				.board(board)
 				.category(child)

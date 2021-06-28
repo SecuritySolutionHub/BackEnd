@@ -18,8 +18,10 @@ import com.java.web.solutionhub.board.domain.Category;
 import com.java.web.solutionhub.board.repository.BoardRepository;
 import com.java.web.solutionhub.board.repository.CategoryRepository;
 
+import lombok.extern.slf4j.Slf4j;
 
-@Transactional
+
+@Slf4j
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 class BoardServiceTest {
@@ -40,38 +42,6 @@ class BoardServiceTest {
 	
 	@Autowired
 	EntityManager em;
-
-//	@Test
-//	void saveTest() {
-//		//given
-//		BoardDto inputData = BoardDto.builder()
-//				.userId("test User")
-//				.title("TEST 1")
-//				.content("TEST 1 Contents")
-//				.build();
-//		//when
-//		Long id = boardService.uploadPost(inputData);
-//		BoardDto getData = boardService.getBoardInfoByIdx(id);
-//		
-//		//then
-//		assertEquals(getData.getTitle(), inputData.getTitle());
-//	}
-//	
-//	@Test
-//	void searchTitleTest() {
-//		BoardDto inputData = BoardDto.builder()
-//				.userId("test User")
-//				.title("TEST 1")
-//				.content("TEST 1 Contents")
-//				.build();
-//		
-//		 boardService.uploadPost(inputData);
-//		 List<BoardDto> getData = boardService.getBoardInfoByUserId("test User");
-//		 
-//		 for(BoardDto data : getData) {
-//			 assertEquals(data.getTitle(), "TEST 1");
-//		 }
-//	}
 	
 	@Test
 	void addCategory() {
@@ -89,7 +59,7 @@ class BoardServiceTest {
 		
 		
 		Long fisrtBoardId = boardService.uploadPost(firstPost);
-		Long secondBoardId = boardService.uploadPost(secondPost);
+		boardService.uploadPost(secondPost);
 		
 		var category = "TEST CATEGORY";
 		Long cateId = categoryService.addCategory(category);
@@ -97,16 +67,22 @@ class BoardServiceTest {
 		var categoryChild = "CHILD CATEGORY";
 		Long childCateid = categoryService.addCategory(categoryChild);
 		
+		log.info("cateID is {}", cateId);
+		log.info("child CateID is {}", childCateid);
+		
 		
 		categoryService.addChildCategoryToBoard(fisrtBoardId, cateId, childCateid);
-		Category getCate = categoryService.findCategoryById(cateId);
 		
+		log.info("TEST 2");
 		boardService.addBoardCategory(fisrtBoardId, cateId);
 		
-		var getData = boardService.getBoardInfoByIdx(fisrtBoardId);
 		
-		System.out.println(getData);
-		assertEquals(getData.getTitle(), firstPost.getTitle());
+		log.info("TEST 3");
+		var getData = boardService.getBoardInfoByCategory(cateId);
+		
+		
+		log.info("TEST 4");
+		assertEquals(getData.get(0).getTitle(), firstPost.getTitle());
 //		assertEquals(getCate.getChild(), categoryService.findCategoryById(childCateid));
 	}
 

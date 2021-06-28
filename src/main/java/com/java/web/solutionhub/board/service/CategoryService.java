@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.java.web.solutionhub.board.domain.BoardCategory;
 import com.java.web.solutionhub.board.domain.Category;
+import com.java.web.solutionhub.board.domain.CategoryDto;
 import com.java.web.solutionhub.board.repository.BoardCategoryRepository;
 import com.java.web.solutionhub.board.repository.BoardRepository;
 import com.java.web.solutionhub.board.repository.CategoryRepository;
@@ -34,9 +35,18 @@ public class CategoryService {
 		return result.getId();
 	}
 	
-	public Category findCategoryById(Long id) {
-		Optional<Category> category = categoryRepository.findById(id);
-		return category.orElse(null);
+	public CategoryDto findCategoryById(Long id) {
+		var category = categoryRepository.findById(id).orElseThrow();
+		CategoryDto result = CategoryDto.builder()
+				.categoryId(category.getId())
+				.categoryType(category.getCategoryType())
+				.build();
+		
+		if(category.getParent() != null) {
+			result.setParentsId(category.getParent().getId());
+		}
+		
+		return result;
 	}
 	
 	@Transactional

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.java.web.solutionhub.board.domain.Board;
+import com.java.web.solutionhub.board.domain.BoardCategory;
 
 public interface BoardRepository extends JpaRepository<Board, Long>{
 	

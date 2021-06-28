@@ -1,6 +1,5 @@
 package com.java.web.solutionhub.board.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.java.web.solutionhub.board.domain.BoardCategory;
 import com.java.web.solutionhub.board.domain.BoardDto;
 import com.java.web.solutionhub.board.domain.CategoryDto;
 import com.java.web.solutionhub.board.service.BoardService;
@@ -28,9 +26,19 @@ public class BoardController {
 	private final CategoryService categoryService;
 	
 	
-	@GetMapping("/board/{id}/content")
-	public BoardDto getBoardInfoByIdx(@PathVariable("id") Long id) {
+	@GetMapping("/board/{boardId}/content")
+	public BoardDto getBoardInfoByIdx(@PathVariable("boardId") Long id) {
 		return boardService.getBoardInfoByIdx(id);
+	}
+	
+	@GetMapping("/board/{categoryId}/category")
+	public List<BoardDto> getBoardInfoByCategory(@PathVariable("categoryId") Long id) {
+		return boardService.getBoardInfoByCategory(id);
+	}
+	
+	@GetMapping("/category/{categoryId}")
+	public CategoryDto getCategoryInfoByid(@PathVariable("categoryId") Long id) {
+		return categoryService.findCategoryById(id);
 	}
 	
 	@PostMapping("/board")

@@ -77,8 +77,20 @@ public class BoardService {
 		boardCategoryRepository.save(boardCategory);
 	}
 	
-	public void deletePost(Long id) {
+	public void deletePost(Long id) { 	
 		boardRepository.deleteById(id);
+	}
+	
+	public List<BoardDto> getBoardInfoByCategory(Long cagetoryId) {
+		List<BoardCategory> getBoardData = boardCategoryRepository.findByCategory(
+				categoryRepository.findById(cagetoryId).orElseThrow());
+		List<BoardDto> resultList = new ArrayList<>();
+		for(BoardCategory boardCategory : getBoardData) {
+			var board = boardCategory.getBoard();
+			resultList.add(getBoardInfoByIdx(board.getId()));
+		}
+		
+		return resultList;
 	}
 	
 	@Transactional

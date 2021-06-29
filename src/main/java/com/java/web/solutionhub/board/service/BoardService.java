@@ -1,9 +1,7 @@
 package com.java.web.solutionhub.board.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -12,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.java.web.solutionhub.board.domain.Board;
 import com.java.web.solutionhub.board.domain.BoardCategory;
 import com.java.web.solutionhub.board.domain.BoardDto;
-import com.java.web.solutionhub.board.domain.Category;
 import com.java.web.solutionhub.board.domain.CategoryDto;
 import com.java.web.solutionhub.board.repository.BoardCategoryRepository;
 import com.java.web.solutionhub.board.repository.BoardRepository;

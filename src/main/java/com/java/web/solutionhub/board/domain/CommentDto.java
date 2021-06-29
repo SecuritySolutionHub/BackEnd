@@ -13,13 +13,4 @@ public class CommentDto {
 	private Double point;
 	private String commentInfo;
 	
-	public Comment convertEntity() {
-		return Comment.builder()
-				.boardId(boardId)
-				.userId(userId)
-				.commentInfo(commentInfo)
-				.point(point)
-				.build();
-				
-	}
 }

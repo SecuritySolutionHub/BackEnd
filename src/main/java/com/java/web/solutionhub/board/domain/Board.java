@@ -45,7 +45,8 @@ public class Board {
 	private List<BoardCategory> boardCategory = new ArrayList<>();
 	
 	@Column(name = "comment_id")
-	private Long commentId;
+	@OneToMany(mappedBy = "comment")
+	private List<BoardComment> boardComment = new ArrayList<>();
 	
 	
 	public void modifyContent(String title, String content) {

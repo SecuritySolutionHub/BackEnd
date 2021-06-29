@@ -33,8 +33,8 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(targetEntity = Board.class, fetch = FetchType.LAZY)
-	private Long boardId;
+	@ManyToOne(fetch = FetchType.LAZY)
+	private BoardComment boardId;
 	
 	@Column(name="user_id")
 	private Long userId;
@@ -60,11 +60,16 @@ public class Comment {
 	}
 	
 	@Builder
-	public Comment(Long boardId, Long userId, String commentInfo, Double point) {
-		this.boardId = boardId;
+	public Comment(Long userId, String commentInfo, Double point) {
 		this.userId = userId;
 		this.commentInfo = commentInfo;
 		this.point = point;
 	}
 	
+	public Long modifyComment(CommentDto commentDto) {
+		this.commentInfo = commentDto.getCommentInfo();
+		this.point = commentDto.getPoint();
+		
+		return commentDto.getId();
+	}
 }

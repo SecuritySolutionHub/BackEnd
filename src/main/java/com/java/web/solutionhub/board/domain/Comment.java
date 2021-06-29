@@ -34,7 +34,7 @@ public class Comment {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	private BoardComment boardId;
+	private List<BoardComment> boardId;
 	
 	@Column(name="user_id")
 	private Long userId;

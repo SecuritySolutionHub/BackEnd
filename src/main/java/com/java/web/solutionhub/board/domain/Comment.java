@@ -33,8 +33,8 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	private List<BoardComment> boardId;
+	@OneToMany(mappedBy = "comment")
+	private List<BoardComment> board;
 	
 	@Column(name="user_id")
 	private Long userId;

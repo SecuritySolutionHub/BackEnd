@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -32,4 +34,10 @@ public class BoardComment {
 	@JoinColumn(name = "comment_id")
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Comment comment;
+	
+	@Builder
+	public BoardComment(Board board, Comment comment) {
+		this.board = board;
+		this.comment = comment;
+	}
 }

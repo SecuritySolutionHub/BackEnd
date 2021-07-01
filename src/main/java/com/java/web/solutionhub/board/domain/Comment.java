@@ -1,5 +1,6 @@
 package com.java.web.solutionhub.board.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,10 @@ public class Comment {
 	
 	private Double point;
 	
+	
+	@Column(name="time", nullable = false)
+	private LocalDateTime time;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
 	private Comment parent;
@@ -64,6 +69,7 @@ public class Comment {
 		this.userId = userId;
 		this.commentInfo = commentInfo;
 		this.point = point;
+		this.time = LocalDateTime.now();
 	}
 	
 	public Long modifyComment(CommentDto commentDto) {

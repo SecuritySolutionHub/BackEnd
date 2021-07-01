@@ -1,5 +1,6 @@
 package com.java.web.solutionhub.board.domain;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,10 @@ public class Board {
 	@Column(name = "content", nullable = false)
 	private String content;
 	
+	
+	@Column(name = "upload_date", nullable = false)
+	private LocalDateTime uploadDate;
+	
 	@Column(name = "category_id")
 	@OneToMany(mappedBy = "board")
 	private List<BoardCategory> boardCategory = new ArrayList<>();
@@ -59,11 +64,7 @@ public class Board {
 		this.userId = userId;
 		this.title = title;
 		this.content = content;
-	}
-	
-	public void updateBoard(String title, String content) {
-		this.title = title;
-		this.content = content;
+		this.uploadDate = LocalDateTime.now();
 	}
 	
 	public void addBoardCategory(BoardCategory category) {

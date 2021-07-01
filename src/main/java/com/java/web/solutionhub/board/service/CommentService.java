@@ -37,7 +37,6 @@ public class CommentService {
 	public Long saveComment(CommentDto commentDto, Long boardId) {
 		var comment = Comment.builder()
 				.userId(commentDto.getUserId())
-				.point(commentDto.getPoint())
 				.commentInfo(commentDto.getCommentInfo())
 				.build();
 		var saveComment = commentRepository.save(comment);
@@ -83,6 +82,17 @@ public class CommentService {
 	@Transactional
 	public void addChildComment(CommentDto commentDto, Long parentId) {
 		var parentComment = commentRepository.findById(parentId).orElseThrow();
+		var comment = Comment.builder()
+				.commentInfo(commentDto.getCommentInfo())
+				.userId(commentDto.getUserId())
+				.build();
+		var getComment = commentRepository.save(comment);
+		
+		parentComment.addChildComment(getComment);
+		boardCommentRepository.save(BoardComment.builder()
+				.board(boardRepository.findById(commentDto.getBoardId()).orElseThrow())
+				.comment(getComment)
+				.build());
 	}
 	
 	/**
@@ -102,7 +112,6 @@ public class CommentService {
 					.id(comment.getId())
 					.userId(comment.getUserId())
 					.commentInfo(comment.getCommentInfo())
-					.point(comment.getPoint())
 					.build();
 			
 			resultList.add(commentDto);

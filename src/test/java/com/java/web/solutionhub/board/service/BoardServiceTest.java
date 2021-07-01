@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,7 +13,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.java.web.solutionhub.board.controller.BoardController;
 import com.java.web.solutionhub.board.domain.BoardDto;
-import com.java.web.solutionhub.board.domain.Category;
 import com.java.web.solutionhub.board.repository.BoardRepository;
 import com.java.web.solutionhub.board.repository.CategoryRepository;
 

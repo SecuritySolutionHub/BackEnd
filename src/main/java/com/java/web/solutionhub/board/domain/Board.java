@@ -53,6 +53,9 @@ public class Board {
 	@OneToMany(mappedBy = "comment")
 	private List<BoardComment> boardComment = new ArrayList<>();
 	
+	@Column(name = "review_id")
+	@OneToMany(mappedBy = "id")
+	private List<Review> reviewList = new ArrayList<>();
 	
 	public void modifyContent(String title, String content) {
 		this.title = title;

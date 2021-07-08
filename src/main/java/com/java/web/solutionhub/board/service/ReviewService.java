@@ -51,6 +51,7 @@ public class ReviewService {
 	 * @param reviewDto
 	 */
 	public void deleteReview(ReviewDto reviewDto) {
+		log.info("Delete Review review_id = {}, user_id = {}", reviewDto.getId(), reviewDto.getUserId());
 		boardRepository.deleteById(reviewDto.getId());
 	}
 	

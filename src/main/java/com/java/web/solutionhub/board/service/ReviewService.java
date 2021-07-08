@@ -83,6 +83,11 @@ public class ReviewService {
 		
 	}
 	
+	/**
+	 * Function to get review information by id
+	 * @param reviewId
+	 * @return
+	 */
 	public ReviewDto getReviewByReviewId(Long reviewId) {
 		var review = reviewRepository.findById(reviewId).orElseThrow();
 		

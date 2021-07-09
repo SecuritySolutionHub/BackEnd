@@ -1,5 +1,6 @@
 package com.java.web.solutionhub.board.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,10 @@ import com.java.web.solutionhub.board.domain.BoardDto;
 import com.java.web.solutionhub.board.domain.CategoryDto;
 import com.java.web.solutionhub.board.service.BoardService;
 import com.java.web.solutionhub.board.service.CategoryService;
+import com.java.web.solutionhub.board.service.ReviewService;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -23,6 +27,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 
 	private final BoardService boardService;
+	private final ReviewService reviewService;
 	private final CategoryService categoryService;
 	
 	
@@ -39,6 +44,18 @@ public class BoardController {
 	@GetMapping("/category/{categoryId}")
 	public CategoryDto getCategoryInfoByid(@PathVariable("categoryId") Long id) {
 		return categoryService.findCategoryById(id);
+	}
+	
+	@GetMapping("/board/{category}")
+	public List<BoardInfo> getBoardInfoByCategory(@PathVariable("category") String category) {
+		CategoryDto cate = categoryService.findCategoryByCategoryType(category);
+		var boardDtoList = boardService.getBoardInfoByCategory(cate.getCategoryId());
+		List<BoardInfo> result = new ArrayList<>();
+		for(BoardDto boardDto : boardDtoList) {
+			var boardInfo = new BoardInfo(boardDto, reviewService.getReviewListByBoard(boardDto.getId()).getAvgPoint());
+			result.add(boardInfo);
+		}
+		return result;
 	}
 	
 	@PostMapping("/board")
@@ -71,5 +88,12 @@ public class BoardController {
 	@PostMapping("/board/{id}")
 	public void addCategory(@PathVariable("id") Long id,  @RequestBody Map<String, String> category) {
 		boardService.addBoardCategory(id, Long.parseLong(category.get("id")));
+	}
+	
+	@Data
+	@AllArgsConstructor
+	private class BoardInfo {
+		BoardDto board;
+		Long avgPoint = (long) 0;
 	}
 }

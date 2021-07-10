@@ -39,11 +39,9 @@ public class Comment {
 	
 	@Column(name="user_id")
 	private Long userId;
-	
+
+	@Column(name = "info")
 	private String commentInfo;
-	
-	private Double point;
-	
 	
 	@Column(name="time", nullable = false)
 	private LocalDateTime time;
@@ -68,14 +66,11 @@ public class Comment {
 	public Comment(Long userId, String commentInfo, Double point) {
 		this.userId = userId;
 		this.commentInfo = commentInfo;
-		this.point = point;
 		this.time = LocalDateTime.now();
 	}
 	
 	public Long modifyComment(CommentDto commentDto) {
 		this.commentInfo = commentDto.getCommentInfo();
-		this.point = commentDto.getPoint();
-		
 		return commentDto.getId();
 	}
 }

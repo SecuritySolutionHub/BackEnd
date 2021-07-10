@@ -10,7 +10,6 @@ public class CommentDto {
 	private Long boardId;
 	private Long userId;
 	private Long parentsId;
-	private Double point;
 	private String commentInfo;
 	
 }

@@ -53,6 +53,9 @@ public class Board {
 	@OneToMany(mappedBy = "comment")
 	private List<BoardComment> boardComment = new ArrayList<>();
 	
+	@Column(name = "review_id")
+	@OneToMany(mappedBy = "id")
+	private List<Review> reviewList = new ArrayList<>();
 	
 	public void modifyContent(String title, String content) {
 		this.title = title;
@@ -73,5 +76,13 @@ public class Board {
 	
 	public void subBoardCategory(BoardCategory category) {
 		boardCategory.remove(category);
+	}
+	
+	public void addReview(Review review) {
+		this.reviewList.add(review);
+	}
+	
+	public void removeReview(Review review) {
+		this.reviewList.remove(review);
 	}
 }

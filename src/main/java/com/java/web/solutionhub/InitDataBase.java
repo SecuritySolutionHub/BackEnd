@@ -5,7 +5,6 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.java.web.solutionhub.board.domain.Board;
 import com.java.web.solutionhub.board.domain.BoardDto;
 import com.java.web.solutionhub.board.service.BoardService;
 import com.java.web.solutionhub.board.service.CategoryService;

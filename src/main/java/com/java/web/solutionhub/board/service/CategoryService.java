@@ -33,20 +33,6 @@ public class CategoryService {
 		return result.getId();
 	}
 	
-	public CategoryDto findCategoryById(Long id) {
-		var category = categoryRepository.findById(id).orElseThrow();
-		CategoryDto result = CategoryDto.builder()
-				.categoryId(category.getId())
-				.categoryType(category.getCategoryType())
-				.build();
-		
-		if(category.getParent() != null) {
-			result.setParentsId(category.getParent().getId());
-		}
-		
-		return result;
-	}
-	
 	@Transactional
 	public void addChildCategoryToBoard(Long boardId, Long parentsId, Long childId) {
 		var board = boardRepository.findById(boardId).orElseThrow();
@@ -62,4 +48,34 @@ public class CategoryService {
 		
 		boardCategoryRepository.save(saveData);
 	}
+	
+	public CategoryDto findCategoryById(Long id) {
+		var category = categoryRepository.findById(id).orElseThrow();
+		CategoryDto result = CategoryDto.builder()
+				.categoryId(category.getId())
+				.categoryType(category.getCategoryType())
+				.build();
+		
+		if(category.getParent() != null) {
+			result.setParentsId(category.getParent().getId());
+		}
+		
+		return result;
+	}
+	
+	public CategoryDto findCategoryByCategoryType(String categoryType) {
+		var category = categoryRepository.findByCategoryType(categoryType).orElseThrow();
+		
+		CategoryDto result = CategoryDto.builder()
+				.categoryId(category.getId())
+				.categoryType(category.getCategoryType())
+				.build();
+		
+		if(category.getParent() != null) {
+			result.setParentsId(category.getParent().getId());
+		}
+		
+		return result;
+	}
+	
 }

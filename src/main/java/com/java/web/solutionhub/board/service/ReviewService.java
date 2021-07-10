@@ -29,6 +29,7 @@ public class ReviewService {
 	 * @param reviewDto
 	 * @return
 	 */
+	@Transactional
 	public Long saveReview(ReviewDto reviewDto) {
 		var board = boardRepository.findById(reviewDto.getBoardId()).orElseThrow();
 		
@@ -41,9 +42,23 @@ public class ReviewService {
 				.point(reviewDto.getPoint())
 				.build();
 		
-		log.info("Save Review By {}", review.getUserId());
+		log.info("Save Review By {}", reviewDto.getUserId());
 		
-		return reviewRepository.save(review).getId();
+		var getReview = reviewRepository.save(review);
+		board.addReview(getReview);
+		
+		return getReview.getId();
+	}
+	
+	/**
+	 * Function to update review
+	 * @param reviewDto
+	 */
+	@Transactional
+	public void updateReview(ReviewDto reviewDto) {
+		var getReview = reviewRepository.findById(reviewDto.getId()).orElseThrow();
+		getReview.updateReview(reviewDto.getTotalReview(), reviewDto.getAdvantage(), reviewDto.getWeakness());
+		log.info("update review by {}. update Review ID is {}", reviewDto.getUserId(), reviewDto.getId());
 	}
 	
 	/**

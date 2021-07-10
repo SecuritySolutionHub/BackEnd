@@ -51,6 +51,12 @@ public class Review {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Board board;
 	
+	public void updateReview(String totalReview, String advantage, String weakness) {
+		this.totalReview = totalReview;
+		this.advantage = advantage;
+		this.weakness = weakness;
+	}
+	
 	@Builder
 	public Review(Board board, String totalReview, String advantage, String weakness, Long point, Long userId) {
 		this.board = board;
@@ -61,4 +67,5 @@ public class Review {
 		this.point = point;
 		this.time = LocalDateTime.now();
 	}
+	
 }

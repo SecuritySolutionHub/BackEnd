@@ -77,4 +77,12 @@ public class Board {
 	public void subBoardCategory(BoardCategory category) {
 		boardCategory.remove(category);
 	}
+	
+	public void addReview(Review review) {
+		this.reviewList.add(review);
+	}
+	
+	public void removeReview(Review review) {
+		this.reviewList.remove(review);
+	}
 }

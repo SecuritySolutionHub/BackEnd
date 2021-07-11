@@ -55,13 +55,11 @@ public class BoardService {
 	}
 	
 	public List<Board> getBoardInfoByTitle(String title) {
-		List<Board> getData = boardRepository.findByTitle(title).stream().collect(Collectors.toList());
-		return getData;
+		return boardRepository.findByTitle(title).stream().collect(Collectors.toList());
 	}
 	
 	public List<Board> getBoardInfoByUserId(String userId) {
-		List<Board> getData = boardRepository.findByUserId(userId).stream().collect(Collectors.toList());
-		return getData;
+		return boardRepository.findByUserId(userId).stream().collect(Collectors.toList());
 	}
 	
 	public void addBoardCategory(Long boardId, Long categoryId) {

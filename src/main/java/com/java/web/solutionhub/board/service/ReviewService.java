@@ -67,7 +67,10 @@ public class ReviewService {
 	 */
 	public void deleteReview(ReviewDto reviewDto) {
 		log.info("Delete Review review_id = {}, user_id = {}", reviewDto.getId(), reviewDto.getUserId());
-		boardRepository.deleteById(reviewDto.getId());
+		var board = boardRepository.getOne(reviewDto.getBoardId());
+		var review = reviewRepository.getOne(reviewDto.getId());
+		board.removeReview(review);
+		reviewRepository.delete(review);
 	}
 	
 	/**

@@ -1,6 +1,6 @@
 package com.java.web.solutionhub.board.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,5 +31,10 @@ public class ReviewController {
 	public void updateReview(ReviewDto review) {
 		reviewService.updateReview(review);
 	}
+	
 	/* DELETE */
+	@DeleteMapping("/board/review")
+	public void deletereview(ReviewDto review) {
+		reviewService.deleteReview(review);
+	}
 }

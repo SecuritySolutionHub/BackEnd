@@ -9,7 +9,6 @@ import com.java.web.solutionhub.member.service.MemberService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Map;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,21 +26,21 @@ public class MemberController {
     
     // 회원 가입
     @PostMapping("/join")
-    public Long join(@RequestBody Map<String, String> member) {
+    public Long join(@RequestBody CreateMemberRequest member) {
     	return memberService.join(MemberSaveRequsetDto.builder()
-    			.userId(member.get("userId"))
-    			.password(passwordEncoder.encode(member.get("password")))
-    			.companyEmail(member.get("companyEmail"))
+    			.userId(member.id)
+    			.password(passwordEncoder.encode(member.password))
+    			.companyEmail(member.companyEmail)
     			.roll(memberRoll.USER)
     			.build());
     }
     
     // 로그인
     @PostMapping("/login")
-    public String login(@RequestBody Map<String, String> member) {
-    	var members = memberService.findByUserId(member.get("userId"))
-                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 계졍입니다."));
-        if (!passwordEncoder.matches(member.get("password"), members.getPassword())) {
+    public String login(@RequestBody LoginMemberRequest member) {
+    	var members = memberService.findByUserId(member.getId())
+                .orElseThrow(() -> new IllegalArgumentException("가입되지 않은 계정입니다."));
+        if (!passwordEncoder.matches(member.getPassword(), members.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
         return jwtTokenProvider.createToken(members.getUsername(), members.getRoles());
@@ -49,10 +48,14 @@ public class MemberController {
     
     @Data
     static class CreateMemberRequest{
-    	private Long id;
-    	
-    	public CreateMemberRequest(Long id) {
-    		this.id = id;
-    	}
+    	private String id;
+    	private String companyEmail;
+    	private String password;
+    }
+    
+    @Data
+    static class LoginMemberRequest{
+    	private String id;
+    	private String password;
     }
 }

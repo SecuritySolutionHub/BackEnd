@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.java.web.solutionhub.board.domain.ReviewDto;
 import com.java.web.solutionhub.board.service.ReviewService;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -17,13 +18,35 @@ public class ReviewController {
 	private final ReviewService reviewService;
 	
 	/* STATIC CLASS */
+	@Data
+	class RequestReviewDto{
+		private Long boardId;
+		
+		private Long userId;
+		
+		private Long point;
+		
+		private String totalReview;
+		
+		private String advantage;
+		
+		private String weakness;
+	}
 	
 	/* GET */
 	
 	/* POST */
 	@PostMapping("/board/review")
-	public Long saveReview(ReviewDto review) {
-		return reviewService.saveReview(review);
+	public Long saveReview(RequestReviewDto review) {
+		
+		return reviewService.saveReview(ReviewDto.builder()
+				.boardId(review.boardId)
+				.userId(review.userId)
+				.point(review.point)
+				.totalReview(review.totalReview)
+				.advantage(review.advantage)
+				.weakness(review.weakness)
+				.build());
 	}
 	
 	/*PUT*/

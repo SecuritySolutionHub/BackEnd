@@ -1,8 +1,11 @@
 package com.java.web.solutionhub.board.controller;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.web.solutionhub.board.domain.ReviewDto;
@@ -19,7 +22,7 @@ public class ReviewController {
 	
 	/* STATIC CLASS */
 	@Data
-	class RequestReviewDto{
+	static class RequestReviewDto{
 		private Long boardId;
 		
 		private Long userId;
@@ -34,10 +37,15 @@ public class ReviewController {
 	}
 	
 	/* GET */
+	@GetMapping("/board/review/{reviewId}")
+	public ReviewDto getReviewInfo(@PathVariable("reviewId") Long reviewId) {
+		return reviewService.getReviewByReviewId(reviewId);
+	}
+	
 	
 	/* POST */
 	@PostMapping("/board/review")
-	public Long saveReview(RequestReviewDto review) {
+	public Long saveReview(@RequestBody RequestReviewDto review) {
 		
 		return reviewService.saveReview(ReviewDto.builder()
 				.boardId(review.boardId)
@@ -51,13 +59,13 @@ public class ReviewController {
 	
 	/*PUT*/
 	@PutMapping("/board/review")
-	public void updateReview(ReviewDto review) {
+	public void updateReview(@RequestBody ReviewDto review) {
 		reviewService.updateReview(review);
 	}
 	
 	/* DELETE */
 	@DeleteMapping("/board/review")
-	public void deletereview(ReviewDto review) {
+	public void deletereview(@RequestBody ReviewDto review) {
 		reviewService.deleteReview(review);
 	}
 }

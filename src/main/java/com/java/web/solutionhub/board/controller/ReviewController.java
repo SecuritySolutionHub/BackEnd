@@ -36,6 +36,19 @@ public class ReviewController {
 		private String weakness;
 	}
 	
+	@Data
+	static class UpdateReviewDto{
+		private Long reviewId;
+		
+		private Long point;
+		
+		private String totalReview;
+		
+		private String advantage;
+		
+		private String weakness;
+	}
+	
 	/* GET */
 	@GetMapping("/board/review/{reviewId}")
 	public ReviewDto getReviewInfo(@PathVariable("reviewId") Long reviewId) {
@@ -59,7 +72,14 @@ public class ReviewController {
 	
 	/*PUT*/
 	@PutMapping("/board/review")
-	public void updateReview(@RequestBody ReviewDto review) {
+	public void updateReview(@RequestBody UpdateReviewDto updateReview) {
+		ReviewDto review = ReviewDto.builder()
+				.id(updateReview.getReviewId())
+				.point(updateReview.getPoint())
+				.totalReview(updateReview.getTotalReview())
+				.weakness(updateReview.getWeakness())
+				.advantage(updateReview.getAdvantage())
+				.build();
 		reviewService.updateReview(review);
 	}
 	

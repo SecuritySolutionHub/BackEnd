@@ -111,9 +111,13 @@ public class CommentService {
 			var commentDto = CommentDto.builder()
 					.id(comment.getId())
 					.userId(comment.getUserId())
+					.boardId(boardId)
 					.commentInfo(comment.getCommentInfo())
 					.build();
 			
+			if(comment.getParent() != null) {
+				commentDto.setParentsId(comment.getParent().getId());
+			}
 			resultList.add(commentDto);
 		}
 		

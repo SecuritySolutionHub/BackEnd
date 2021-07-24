@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.java.web.solutionhub.board.domain.BoardDto;
 import com.java.web.solutionhub.board.service.BoardService;
 import com.java.web.solutionhub.board.service.CategoryService;
+import com.java.web.solutionhub.member.domain.enum_package.MemberStatic.memberRoll;
+import com.java.web.solutionhub.member.dto.MemberSaveRequsetDto;
+import com.java.web.solutionhub.member.service.MemberService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class InitDataBase {
 
-	
+	private final MemberService memberService;
 	private final BoardService boardService;
 	private final CategoryService categoryService;
 	
@@ -23,14 +26,32 @@ public class InitDataBase {
 	@PostConstruct
 	@Transactional
 	public void init() {
+		MemberSaveRequsetDto firstMember = MemberSaveRequsetDto.builder()
+    			.userId("first_test")
+    			.password("testPassword")
+    			.companyEmail("first@naver.com")
+    			.roll(memberRoll.USER)
+    			.build();
+		
+		MemberSaveRequsetDto secondMember = MemberSaveRequsetDto.builder()
+    			.userId("second_test")
+    			.password("testPassword")
+    			.companyEmail("second@naver.com")
+    			.roll(memberRoll.USER)
+    			.build();
+		
+		memberService.join(firstMember);
+		memberService.join(secondMember);
+		
+		
 		BoardDto firstPost = BoardDto.builder()
-				.userId("First_User")
+				.userId("first_test")
 				.title("First title")
 				.content("first content is")
 				.build();
 		
 		BoardDto secondPost = BoardDto.builder()
-				.userId("Second_User")
+				.userId("second_test")
 				.title("Second title")
 				.content("second content is")
 				.build();

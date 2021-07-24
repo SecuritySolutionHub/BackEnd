@@ -27,6 +27,7 @@ public class BoardService {
 	private final CategoryRepository categoryRepository;
 	private final BoardCategoryRepository boardCategoryRepository;
 	
+	
 	public Long uploadPost(BoardDto boardDto){
 		var result = boardRepository.save(boardDto.convertEntity());
 		log.info("Post is upload. Title is {}", boardDto.getTitle());
@@ -72,10 +73,19 @@ public class BoardService {
 		boardCategoryRepository.save(boardCategory);
 	}
 	
+	/**
+	 * delete Board function
+	 * @param id
+	 */
 	public void deletePost(Long id) { 	
 		boardRepository.deleteById(id);
 	}
 	
+	/**
+	 * category Id 기반의 board 정보 조회
+	 * @param cagetoryId
+	 * @return
+	 */
 	public List<BoardDto> getBoardInfoByCategory(Long cagetoryId) {
 		List<BoardCategory> getBoardData = boardCategoryRepository.findByCategory(
 				categoryRepository.findById(cagetoryId).orElseThrow());
@@ -88,6 +98,10 @@ public class BoardService {
 		return resultList;
 	}
 	
+	/**
+	 * board 정보 수정
+	 * @param boardDto
+	 */
 	@Transactional
 	public void modifyPost(BoardDto boardDto) {
 		var board = boardRepository.getOne(boardDto.getId());

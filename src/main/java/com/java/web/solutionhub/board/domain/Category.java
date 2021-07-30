@@ -16,7 +16,6 @@ import javax.persistence.OneToMany;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.moomark.board.domain.Category;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

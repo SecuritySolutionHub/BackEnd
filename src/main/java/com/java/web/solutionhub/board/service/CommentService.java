@@ -112,12 +112,10 @@ public class CommentService {
 					.id(comment.getId())
 					.userId(comment.getUserId())
 					.boardId(boardId)
+					.parentsId(comment.getParentAfterNullCheck())
 					.commentInfo(comment.getCommentInfo())
 					.build();
 			
-			if(comment.getParent() != null) {
-				commentDto.setParentsId(comment.getParent().getId());
-			}
 			resultList.add(commentDto);
 		}
 		

@@ -33,7 +33,6 @@ public class MemberRouterController {
 	public String addMember(@Valid MemberDto form, BindingResult result) {
 		log.info("Email is {}", form.getUserId());
 		log.info("test information");
-		System.out.println(form.getUserId());
 		return "redirect:/";
 	}
 }

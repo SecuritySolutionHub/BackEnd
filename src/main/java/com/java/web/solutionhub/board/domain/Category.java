@@ -1,6 +1,7 @@
 package com.java.web.solutionhub.board.domain;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -56,6 +58,17 @@ public class Category {
 	
 	public void setParent(Category parent) {
 		this.parent = parent;
+	}
+
+	/**
+	 * Parent의 값이 null인지 확인하며 반환하는 함수
+	 * @return
+	 */
+	public Long getParentAfterNullCheck() {
+		return Optional.ofNullable(this.parent)
+				.map(Category::getParent)
+				.map(Category::getId)
+				.orElse((long) 0);
 	}
 	
 	@Builder

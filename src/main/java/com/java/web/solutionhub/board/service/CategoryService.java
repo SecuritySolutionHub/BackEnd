@@ -51,16 +51,11 @@ public class CategoryService {
 	
 	public CategoryDto findCategoryById(Long id) {
 		var category = categoryRepository.findById(id).orElseThrow();
-		CategoryDto result = CategoryDto.builder()
+		return CategoryDto.builder()
 				.categoryId(category.getId())
 				.categoryType(category.getCategoryType())
+				.parentsId(category.getParentAfterNullCheck())
 				.build();
-		
-		if(category.getParent() != null) {
-			result.setParentsId(category.getParent().getId());
-		}
-		
-		return result;
 	}
 	
 	public CategoryDto findCategoryByCategoryType(String categoryType) {

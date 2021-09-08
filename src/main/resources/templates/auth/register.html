@@ -10,13 +10,13 @@
 	<link href="/css/styles.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 	
-	<script>
+	<script th:inline="javascript">
 		  function checkParameter() {
-		        if (!checkUserId(form.id.value)) {
+		        if (!checkUserId(form.userName.value)) {
 		            return false;
 		        }
 		        
-		        if (!checkPassword(form.id.value, form.password.value, form.confirm_password.value)) {
+		        if (!checkPassword(form.id.value, form.password.value, form.passwordConfirm.value)) {
 		            return false;
 		        }
 		 
@@ -33,6 +33,7 @@
 		    }
 		 
 		    function checkUserId(id) {
+
 		        //Id가 입력되었는지 확인하기
 		        if (!checkExistData(id, "아이디를"))
 		            return false;
@@ -98,24 +99,24 @@
 								<div class="card-body">
 									<form name=form th:action="@{/auth/register}" th:object="${RegisterMember}" method="post" onsubmit="checkParameter();">
 										<div class="form-floating mb-3">
-											<input class="form-control" th:field="*{companyEmail}" id="companyEmail" name="email" type="email" placeholder="name@example.com" /> 
+											<input class="form-control" th:field="*{companyEmail}" id="companyEmail" name="companyEmail" type="email" placeholder="name@example.com" /> 
 											<label for="inputEmail">Email address</label>
 										</div>
 										<div class="form-floating mb-3">
-											<input class="form-control" th:field="*{userName}" id="userName" name="id" type="text" placeholder="ID"/> 
+											<input class="form-control" th:field="*{userName}" id="userName" name="userName" type="text" placeholder="ID"/> 
 											<label for="ID">ID</label>
 										</div>
 										<div class="row mb-3">
 											<div class="col-md-6">
 												<div class="form-floating mb-3 mb-md-0">
-													<input class="form-control" id="inputPassword" name="password" th:field="*{passWord}"
+													<input class="form-control" id="password" name="password" th:field="*{passWord}"
 														type="password" placeholder="Create a password" /> <label
 														for="inputPassword">Password</label>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-floating mb-3 mb-md-0">
-													<input class="form-control" id="inputPasswordConfirm" name="confirm_password"
+													<input class="form-control" id="passwordConfirm" name="passwordConfirm"
 														type="password" placeholder="Confirm password" /> <label
 														for="inputPasswordConfirm">Confirm Password</label>
 												</div>

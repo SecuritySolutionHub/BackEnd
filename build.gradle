@@ -8,6 +8,7 @@ plugins {
 group = 'com.solutionHub'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
+compileJava.options.encoding = 'UTF-8'
 
 configurations {
 	compileOnly {
@@ -68,4 +69,9 @@ configurations {
 
 compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
+}
+
+bootJar{
+    archiveFileName = 'solution_hub.jar'
+    archiveVersion = "0.0.1"
 }

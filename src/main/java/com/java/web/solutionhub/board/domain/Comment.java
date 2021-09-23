@@ -3,6 +3,7 @@ package com.java.web.solutionhub.board.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,5 +73,12 @@ public class Comment {
 	public Long modifyComment(CommentDto commentDto) {
 		this.commentInfo = commentDto.getCommentInfo();
 		return commentDto.getId();
+	}
+	
+	public Long getParentAfterNullCheck() {
+		return Optional.ofNullable(this.parent)
+				.map(Comment::getParent)
+				.map(Comment::getId)
+				.orElse((long)0);
 	}
 }

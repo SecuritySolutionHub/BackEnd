@@ -39,6 +39,9 @@ public class MemberRoutingController {
 	public String addMember(@Valid RequestRegisterMember form, BindingResult result) {
 		log.info("Email is {}", form.getCompanyEmail());
 		log.info("test information");
+		log.debug("Email is {}", form.getCompanyEmail());
+		log.debug("test information");
+		
 		MemberSaveRequsetDto member = MemberSaveRequsetDto.builder()
 				.userId(form.getUserName())
 				.companyEmail(form.getCompanyEmail())

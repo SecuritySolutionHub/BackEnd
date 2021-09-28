@@ -40,7 +40,7 @@ API 문서를 확인하기 위해서 서버를 실행 후, 아래의 URL로 접�
 
 ## Admin 
 
-[Admin Function]: https://github.com/SecuritySolutionHub/BackEnd/blob/main/docs/AdminFunction.md	"관리자 페이지 기능 설명"
+[Admin Function]: (/docs/AdminFunction.md)
 
 
 

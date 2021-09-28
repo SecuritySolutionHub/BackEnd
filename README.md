@@ -38,6 +38,12 @@ API 문서를 확인하기 위해서 서버를 실행 후, 아래의 URL로 접�
 
 
 
+## Admin 
+
+[Admin Function]: https://github.com/SecuritySolutionHub/BackEnd/blob/main/docs/AdminFunction.md
+
+
+
 ## Entity Relation
 
 ![엔티티 다이어그램](https://user-images.githubusercontent.com/38449976/120375286-9850ca00-c355-11eb-89e6-0717f501ca9d.jpg)

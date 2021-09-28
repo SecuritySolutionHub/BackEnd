@@ -40,7 +40,7 @@ API 문서를 확인하기 위해서 서버를 실행 후, 아래의 URL로 접�
 
 ## Admin 
 
-[Admin Function]: (/docs/AdminFunction.md)
+[Admin Function](/docs/AdminFunction.md)
 
 
 

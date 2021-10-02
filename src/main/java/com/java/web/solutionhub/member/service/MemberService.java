@@ -7,6 +7,8 @@ import com.java.web.solutionhub.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,13 +61,22 @@ public class MemberService {
     }
 
     /**
-     * 모든 회원 조회
+     * get total member information
      * @return memberRepository
      */
     public List<Member> findMembers() {
         return memberRepository.findAll();
     }
-
+    
+    /**
+     * get total member information
+     * @param pageNumber
+     * @return
+     */
+    public Page<Member> findMembersPageable(int pageNumber) {
+    	PageRequest pageRequest = PageRequest.of(pageNumber, 20);
+    	return memberRepository.findAll(pageRequest);
+    }
 
     public Optional<Member> findOne(Long idx) {
         return memberRepository.findByIdx(idx);

@@ -49,7 +49,7 @@ public class BoardController {
 	/* GET */
 	
 	/**
-	 * board 고유 ID 기반의 내용 조회
+	 * Get board content by board ID
 	 * @param id
 	 * @return
 	 */

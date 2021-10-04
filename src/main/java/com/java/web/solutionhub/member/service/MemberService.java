@@ -4,6 +4,8 @@ package com.java.web.solutionhub.member.service;
 import com.java.web.solutionhub.member.domain.Member;
 import com.java.web.solutionhub.member.dto.MemberSaveRequsetDto;
 import com.java.web.solutionhub.member.repository.MemberRepository;
+import com.java.web.solutionhub.member.domain.enum_package.MemberStatic.memberRoll;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -76,6 +78,20 @@ public class MemberService {
     public Page<Member> findMembersPageable(int pageNumber) {
     	PageRequest pageRequest = PageRequest.of(pageNumber, 20);
     	return memberRepository.findAll(pageRequest);
+    }
+    
+    /**
+     * get total member information by member roll
+     * @param memberRoll
+     * @return
+     */
+    public List<Member> findMembersByMemberRoll(String roll) {
+    	return memberRepository.findByMemberRoll(memberRoll.valueOf(roll));
+    }
+    
+    public Page<Member> findMemberByMemberRoll(String roll, int pageNumber) {
+    	PageRequest request = PageRequest.of(pageNumber, 20);
+    	return memberRepository.findByMemberRoll(memberRoll.valueOf(roll), request);
     }
 
     public Optional<Member> findOne(Long idx) {

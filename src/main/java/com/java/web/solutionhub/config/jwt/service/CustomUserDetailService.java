@@ -5,18 +5,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.java.web.solutionhub.member.repository.JpaMemberRepository;
+import com.java.web.solutionhub.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailService implements UserDetailsService{
-	private final JpaMemberRepository jpaMemberRepository;
+	private final MemberRepository memberRepository;
 	
 	@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		return (UserDetails) jpaMemberRepository.findByUserId(username)
+		return (UserDetails) memberRepository.findByUserId(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Can't find user"));
 	}
 

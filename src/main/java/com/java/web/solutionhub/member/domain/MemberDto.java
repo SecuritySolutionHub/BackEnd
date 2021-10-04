@@ -20,4 +20,6 @@ public class MemberDto {
 	
 	@NotEmpty(message = "Compatn email cannot be an empty value")
 	String companyEmail;
+	
+	String memberRoll;
 }

@@ -11,11 +11,11 @@ public class MemberStatic {
 	@AllArgsConstructor
 	@RequiredArgsConstructor
 	public enum memberRoll {
-		USER("NORMAL_USER", "인증되지 않은 회원"),
-		AUTHUSER("AUTH_USER", "인증된 회원"),
-		COMPANYUSER("COMPANY_USER", "기업 회원"),
-		MANAGER("MANAGER", "매니저"),
-		ADMIN("ADMIN", "관리자");
+		USER("NORMAL_USER", "USER"),
+		AUTHUSER("AUTH_USER", "AUTHUSER"),
+		COMPANYUSER("COMPANY_USER", "COMPANY_USER"),
+		MANAGER("MANAGER", "MANAGER"),
+		ADMIN("ADMIN", "ADMIN");
 
 		private String key = "";
 		private String value = "";

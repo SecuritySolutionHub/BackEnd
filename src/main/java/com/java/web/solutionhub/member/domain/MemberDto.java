@@ -3,18 +3,23 @@ package com.java.web.solutionhub.member.domain;
 
 import javax.validation.constraints.NotEmpty;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class MemberDto {
 
 	
-	@NotEmpty(message = "이름값은 필수정보 입니다.")
+	@NotEmpty(message = "USER ID cannot be an empty value.")
 	String userId;
 	
-	@NotEmpty(message = "비밀번호는 필수정보 입니다.")
-	String password;
+	@NotEmpty(message = "Password cannot be an empty value.")
+	@Builder.Default
+	String password = "";
 	
-	@NotEmpty(message = "회사 이메일은 필수정보 입니다.")
+	@NotEmpty(message = "Compatn email cannot be an empty value")
 	String companyEmail;
+	
+	String memberRoll;
 }
